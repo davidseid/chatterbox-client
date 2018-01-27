@@ -66,26 +66,38 @@ var message = {
   roomname: 'lobby'
 };
 
+var usersArr = [];
 app.renderMessage = function renderMessage (message) {
+  // filters repeated users for user container
+  // create a users array in global scope
+  // if (message.user can't be found in the array){
+  // add the user to the array and append the user to the DOM
+  //elsee ---- nothing
+  var escapedUser = _.escape(message.username);
+
+  if (usersArr.indexOf(message.username) === -1) {
+    var $onlineUser = $('<div class="userInMain"></div>');
+    $('#onlineUsers').append($onlineUser);
+    $onlineUser.text(escapedUser);
+      
+    usersArr.push(message.username);
+  }
+  
 
   // Creating Divs
   var $msgContainer = $('<div class="messageContainer"></div>');
   var $username = $('<div class="username"></div>');
-  var $onlineUser = $('<div class="userInMain"></div>');
   var $text = $('<div class="text"></div>');
 
   // Adding texts to created divs
-  var escapedUser = _.escape(message.username);
   var escapedText = _.escape(message.text);
 
   $username.text(escapedUser);
   $text.text(escapedText);
-  $onlineUser.text(escapedUser);
   
   // Appending divs to DOM
   $('#chats').append($msgContainer);
   $('.messageContainer').append($username);
-  $('#onlineUsers').append($onlineUser);
   $('.messageContainer').append($text);
 };
 
@@ -106,6 +118,7 @@ $(document).ready(function () {
   });
   $('.refresh').on('click',function() {
     app.clearMessages();
+    app.fetch(app.renderMessage);
   });
 
   
