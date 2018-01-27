@@ -42,10 +42,13 @@ describe('chatterbox', function() {
           text: 'It\'s good to be the king',
           roomname: 'lobby'
         };
-
+        debugger;
         app.send(message);
+
+
         ajaxOptions = typeof $.ajax.args[0][0] === 'object' ? $.ajax.args[0][0] : $.ajax.args[0][1];
         var result = ajaxOptions.data;
+
         expect(result).to.deep.equal(message);
         done();
       });
