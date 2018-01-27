@@ -7,9 +7,11 @@
 //   roomname: '4chan'
 // };
 //
+
 var app = {
 };
 
+app.server = 'http://parse.sfm8.hackreactor.com/chatterbox/classes/messages'; 
 app.init = function() {
 
 };
@@ -30,14 +32,14 @@ app.send = function send (message) {
   });
 };
 
-app.fetch = function fetch () {
+app.fetch = function fetch (message) {
   $.ajax({
     // This is the url you should use to communicate with the parse API server.
-    url: undefined,
+    url: 'http://parse.sfm8.hackreactor.com/chatterbox/classes/messages',
     type: 'GET',
-    data: 'messages',
     contentType: 'application/json',
     success: function (data) {
+      console.log(data);
       console.log('chatterbox: Message sent');
     },
     error: function (data) {
@@ -51,10 +53,30 @@ app.clearMessages = function clearMessages () {
   $('#chats').empty();
 };
 
+var message = {
+  username: 'Mel Brooks',
+  text: 'Never underestimate the power of the Schwartz!',
+  roomname: 'lobby'
+};
+
 app.renderMessage = function renderMessage (message) {
-  var $msg = $('<div class="message"></div>');
-  $msg.text(message);
-  $('#chats').append($msg);
+
+  // Creating Divs
+  var $msgContainer = $('<div class="messageContainer"></div>');
+  var $username = $('<div class="username"></div>');
+  var $onlineUser = $('<div class="userInMain"></div>');
+  var $text = $('<div class="text"></div>');
+
+  // Adding texts to created divs
+  $username.text(message.username);
+  $text.text(message.text);
+  $onlineUser.text(message.username);
+  
+  // Appending divs to DOM
+  $('#chats').append($msgContainer);
+  $('.messageContainer').append($username);
+  $('#onlineUsers').append($onlineUser);
+  $('.messageContainer').append($text);
 };
 
 app.renderRoom = function renderRoom (roomName) {
@@ -62,6 +84,17 @@ app.renderRoom = function renderRoom (roomName) {
   $room.text(roomName);
   $('#roomSelect').append($room);
 };
+
+app.handleUsernameClick = function () {
+  console.log('this user was clicked');
+};
+
+$(document).ready(function () {
+  $('#onlineUsers').on('click', '.userInMain', function(event) {
+    app.handleUsernameClick();
+  });
+});
+
 
 
 
