@@ -75,9 +75,12 @@ app.renderMessage = function renderMessage (message) {
   var $text = $('<div class="text"></div>');
 
   // Adding texts to created divs
-  $username.text(message.username);
-  $text.text(message.text);
-  $onlineUser.text(message.username);
+  var escapedUser = _.escape(message.username);
+  var escapedText = _.escape(message.text);
+
+  $username.text(escapedUser);
+  $text.text(escapedText);
+  $onlineUser.text(escapedUser);
   
   // Appending divs to DOM
   $('#chats').append($msgContainer);
@@ -100,6 +103,9 @@ app.handleUsernameClick = function () {
 $(document).ready(function () {
   $('#onlineUsers').on('click', '.userInMain', function(event) {
     app.handleUsernameClick();  
+  });
+  $('.refresh').on('click',function() {
+    app.clearMessages();
   });
 
   
