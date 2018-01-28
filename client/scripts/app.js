@@ -39,6 +39,7 @@ app.fetch = function fetch (callback) {
     // This is the url you should use to communicate with the parse API server.
     url: 'http://parse.sfm8.hackreactor.com/chatterbox/classes/messages',
     type: 'GET',
+    data: {order: '-createdAt'},
     contentType: 'application/json',
     success: function (data) {
       var totalData = data.results;
@@ -86,6 +87,7 @@ app.renderMessage = function renderMessage (message) {
 
   // Creating Divs
   var $msgContainer = $('<div class="messageContainer"></div>');
+  
   var $username = $('<div class="username"></div>');
   var $text = $('<div class="text"></div>');
 
