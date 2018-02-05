@@ -88,3 +88,23 @@ form input[type=text] {
     background-color: #0090da;
 }
 
+#onlineUsers{
+    height:100px;
+    width:300px;
+    overflow:scroll;
+    background-color: #f00;
+    padding:10px;
+    margin: 5px;
+    
+}
+
+#onlineUsers:hover {
+  cursor: pointer;
+}
+.messageContainer {}
+.username{}
+.text{}
+
+
+
+
